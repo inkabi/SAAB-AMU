@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Class Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg:  #f0ece4;
+      --dark:     #f5f2ed;
+      --dark2:    #edeae4;
+      --dark3:    #e4e0d8;
+      --gold:     #a07830;
+      --gold2:    #c8a96e;
+      --ink:      #1c1a17;
+      --white:    #ffffff;
+      --offwhite: #faf8f4;
+      --muted:    #7a7060;
+      --border:   rgba(160,120,48,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--page-bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── TOP NAV (saab.com style) ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+      border-bottom: 2px solid var(--gold);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Saab-style wordmark logo */
+    .logo-svg { width: 52px; height: 26px; }
+
+    .nav-divider {
+      width: 1px;
+      height: 22px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .nav-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .nav-right {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── HERO BANNER (full-width dark, gold accent) ── */
+    .hero {
+      background: var(--dark);
+      border-bottom: 2px solid var(--gold);
+      padding: 64px 48px 52px;
+    }
+
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    h1 strong {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+
+    /* ── SEARCH BAR ── */
+    .search-section {
+      background: var(--dark2);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 22px 48px;
+    }
+
+    .search-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+      align-items: center;
+      background: var(--offwhite);
+      border: 1px solid rgba(0,0,0,0.12);
+      padding: 12px 18px;
+      gap: 12px;
+      transition: border-color 0.2s;
+      max-width: 480px;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--gold);
+    }
+
+    .search-icon { color: var(--muted); flex-shrink: 0; }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink);
+      width: 100%;
+      letter-spacing: 0.04em;
+    }
+
+    .search-box input::placeholder { color: var(--muted); }
+
+    /* ── GRID ── */
+    .grid-section {
+      background: var(--page-bg);
+      padding: 40px 48px 72px;
+    }
+
+    .grid-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .section-header span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(0,0,0,0.1);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+      gap: 1px;
+      background: rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .card {
+      background: var(--offwhite);
+      padding: 28px 26px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+      animation: fadeUp 0.4s ease both;
+      cursor: default;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .card:hover { background: var(--dark); }
+    .card:hover::after { width: 100%; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-icon { width: 36px; height: 44px; flex-shrink: 0; }
+    .card-icon svg { width: 100%; height: 100%; }
+
+    .card h3 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .card p {
+      font-size: 12.5px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .card-line {
+      height: 1px;
+      background: rgba(0,0,0,0.08);
+    }
+
+    .card-actions { display: flex; gap: 8px; }
+
+    .btn-view {
+      flex: 1;
+      padding: 10px 0;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-view:hover {
+      background: var(--gold2);
+      color: var(--black);
+    }
+
+    .btn-download {
+      padding: 10px 13px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(0,0,0,0.15);
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: all 0.15s;
+    }
+
+    .btn-download:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── EMPTY ── */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 64px 20px;
+      color: var(--muted);
+      background: var(--offwhite);
+    }
+    .empty-icon { font-size: 40px; margin-bottom: 12px; }
+
+    .edit-section {
+      background: var(--dark2);
+      padding: 0 48px 48px;
+    }
+
+    .edit-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .edit-inner details {
+      background: rgba(160,120,48,0.06);
+      border: 1px solid var(--border);
+      padding: 14px 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .edit-inner summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--gold);
+      list-style: none;
+      letter-spacing: 0.06em;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .edit-inner summary::before { content: "📌  "; }
+
+    .edit-inner code {
+      display: block;
+      background: rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 12px;
+      line-height: 1.9;
+      color: var(--ink);
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    footer {
+      background: var(--ink);
+      border-top: 2px solid var(--gold);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo { opacity: 0.6; }
+
+    .footer-text {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    @media (max-width: 620px) {
+      nav, .hero, .search-section, .grid-section, .edit-section, footer {
+        padding-left: 20px; padding-right: 20px;
+      }
+      h1 { font-size: 1.9rem; }
+      .nav-right, .footer-logo { display: none; }
+      footer { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <!-- Saab griffin emblem (real PNG) -->
+    <img
+      src="https://companieslogo.com/img/orig/SAAB-B.ST-983cc405.png?t=1720244493"
+      alt="Saab emblem"
+      style="height:38px;width:auto;object-fit:contain;filter:brightness(0) invert(1);"
+    />
+    <!-- Saab full wordmark (real PNG, dark bg version) -->
+    
+    <div class="nav-divider"></div>
+    <div class="nav-title">SAAB Grintek Defence</div>
+  </div>
+  <div class="nav-right">Communications</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Amukelani Ngobeni</div>
+    <h1>Browse &amp; <strong>Download</strong></h1>
+    <p class="hero-sub">Access all SAAB Brochures</p>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-inner">
+    <div class="search-box">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search documents…" oninput="filterCards()"/>
+    </div>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="grid-section">
+  <div class="grid-inner">
+    <div class="section-header">
+      <span>All Documents</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" style="display:flex;align-items:center;gap:10px;opacity:0.55;">
+    <img
+      src="https://companieslogo.com/img/orig/SAAB-B.ST-983cc405.png?t=1720244493"
+      alt="Saab emblem"
+      style="height:28px;width:auto;object-fit:contain;filter:brightness(0) invert(1);"
+    />
+    
+  </div>
+  <div class="footer-text">SAAB Grintek Defence &nbsp;·&nbsp; Communications</div>
+</footer>
+
+<script>
+  // ============================================================
+  //  ✏️  ADD YOUR PDFs HERE — just copy/paste more objects!
+  // ============================================================
+  const pdfs = [
+    {
+      title: "Company brochure",
+      description: "Overview of the company.",
+      url: "file1.pdf"
+    },
+    {
+      title: "graduate programme",
+      description: "who can apply and The application process.",
+      url: "file2.pdf"
+    },
+    {
+      title: "Internship Information Sheet",
+      description: "internship opportunities ,requirements and application deadlines",
+      url: "file3.pdf"
+    },
+    {
+      title: "Recruitment Flyer",
+      description: "open positions ,graduate programmes and internships",
+      url: "file4.pdf"
+    },
+    {
+      title: "Application Instructions Sheet",
+      description: "how to apply online, website links and QR codes.",
+      url: "file5.pdf"
+    },
+    {
+      title: "Graduate Career Path Document",
+      description: "how careers grow in the company ,promotion paths and training opportunities",
+      url: "file6.pdf"
+    },
+  ];
+  // ============================================================
+
+  function pdfIcon() {
+    return `<svg viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="36" height="44" rx="2" fill="rgba(160,120,48,0.1)" stroke="rgba(160,120,48,0.35)" stroke-width="1"/>
+      <path d="M5 10h17l8 8v20H5V10z" fill="#faf8f4" stroke="rgba(160,120,48,0.25)" stroke-width="0.8"/>
+      <path d="M22 10v8h8" fill="none" stroke="rgba(160,120,48,0.4)" stroke-width="0.8"/>
+      <rect x="9" y="22" width="16" height="1.5" rx="0.75" fill="#a07830" opacity="0.8"/>
+      <rect x="9" y="27" width="11" height="1.5" rx="0.75" fill="#a07830" opacity="0.45"/>
+      <rect x="9" y="32" width="13" height="1.5" rx="0.75" fill="#a07830" opacity="0.45"/>
+    </svg>`;
+  }
+
+  function downloadIcon() {
+    return `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>`;
+  }
+
+  function filterCards() { renderCards(); }
+
+  function renderCards() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const grid  = document.getElementById('grid');
+    const list  = pdfs.filter(p =>
+      p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
+    );
+
+    if (list.length === 0) {
+      grid.innerHTML = `<div class="empty"><div class="empty-icon">📭</div><p>No documents found.</p></div>`;
+      return;
+    }
+
+    grid.innerHTML = list.map((p, i) => `
+      <div class="card" style="animation-delay:${i * 0.07}s">
+        <div class="card-icon">${pdfIcon()}</div>
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <div class="card-line"></div>
+        <div class="card-actions">
+          <a class="btn-view" href="${p.url}" target="_blank" rel="noopener">View PDF</a>
+          <a class="btn-download" href="${p.url}" download title="Download">${downloadIcon()}</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderCards();
+</script>
+</body>
+</html>
